@@ -55,3 +55,27 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+}   
+
+.card-panel{
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid #000;
+    width: 500px;
+    min-width: 400px;
+    max-width: 700px;
+    flex: 1 1;
+}
