@@ -6,10 +6,16 @@ app = Flask(__name__)
 
 @app.route('/')
 def comentarios():
+
+    conn = conexao.get_conexao()
+    cursor = conn.cursor()
+
     # Consulta os comentários do banco de dados
     sql = "SELECT nome, data_hora, comentario FROM tb_comentarios ORDER BY data_hora DESC"
-    conexao.cursor.execute(sql)
-    comentarios = conexao.cursor.fetchall()  # Recupera todos os comentários da tabela
+    cursor.execute(sql)
+    comentarios = cursor.fetchall()  # Recupera todos os comentários da tabela
+
+    conexao.close_conexao(conn, cursor)
 
     # Passa os dados para o template
     return render_template('index.html', comentarios=comentarios)
@@ -21,6 +27,9 @@ def getComentario():
     comentarioUser = request.form['comentario']
     data_hora = datetime.datetime.today()
 
+    conn = conexao.get_conexao()
+    cursor = conn.cursor()
+
     sql = """
         INSERT INTO tb_comentarios(nome, data_hora, comentario)
         VALUES(%s,%s,%s)
@@ -28,11 +37,10 @@ def getComentario():
 
     valores = (nomeUser, data_hora, comentarioUser)
 
-    conexao.cursor.execute(sql, valores)
-    conexao.conn.commit()
+    cursor.execute(sql, valores)
+    conn.commit()
 
-    conexao.cursor.close()
-    conexao.conn.close()
+    conexao.close_conexao(conn, cursor)
 
     return redirect('/')
 
