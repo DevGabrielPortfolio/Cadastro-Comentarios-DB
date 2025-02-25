@@ -1,5 +1,7 @@
 import mysql.connector
 
-mydb = mysql.connector.connect(host="localhost", user="root", password="root")
+conn = mysql.connector.connect(host="localhost", port=3306, user="root", password="root", database="db_feedback")
 
-print(mydb)
+cursor = conn.cursor()
+
+print (conn)

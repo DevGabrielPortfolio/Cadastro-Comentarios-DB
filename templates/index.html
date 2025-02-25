@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentários</title>
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <h1>Deixe seu comentário</h1>
+
+    <form action="/post/comentario" method="post">
+
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="comentario">Comentário:</label><br>
+        <textarea id="comentario" name="comentario" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Enviar Comentário</button>
+
+    </form>
+
+    <div class="container">
+        <div class="row">
+            {% for comentario in comentarios %}
+            <div class="col s12 m5">
+                <div class="card-panel" style="max-width: 300px; height: auto; padding: 10px;">
+                    <h5 class="white-text">{{ comentario[0] }}</h5>  <!-- Nome do usuário -->
+                    <span class="white-text" style="word-wrap: break-word; display: inline-block; width: 100%;">{{ comentario[2] }}</span> <!-- Comentário -->
+                    <p class="white-text" style="font-size: 0.8em;">{{ comentario[1] }}</p>  <!-- Data e hora -->
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+
+</body>
+</html>
